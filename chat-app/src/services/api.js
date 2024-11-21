@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/auth";
+const API_URL = "http://localhost:4000/auth";
 
 export const register = async (username, password) => {
   try {
@@ -13,4 +13,22 @@ export const register = async (username, password) => {
     console.error(error);
     throw error.response.data;
   }
+};
+
+export const login = async (username, password) => {
+  try {
+    const response = await axios.post(`${API_URL}/login`, {
+      username,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error.response.data;
+  }
+};
+
+export const logout = async () => {
+  localStorage.removeItem("token");
+  window.location.href = "/login";
 };

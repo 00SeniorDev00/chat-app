@@ -1,4 +1,6 @@
-import useState from "react";
+"use client";
+
+import { useState } from "react";
 import { register } from "../services/api";
 
 export default function RegisterForm() {
@@ -18,8 +20,8 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <h2 className="text-2xl font-bold mb-5">Register</h2>
+    <div className="max-w-md mx-auto mt-10 text-black">
+      <h2 className="text-2xl font-bold mb-5 text-white">Register</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -60,7 +62,7 @@ export default function RegisterForm() {
           Register
         </button>
       </form>
-      {message && <p className="text-center mt-5">{message}</p>}
+      {message && <p className="text-center mt-5 text-red-400">{message}</p>}
     </div>
   );
 }
