@@ -2,20 +2,21 @@
 
 import { useState } from "react";
 import { register } from "../services/api";
+import toast from "react-hot-toast";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
       await register(username, password);
-      setMessage("User registered successfully");
+      toast.success("User registered successfully");
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
+      console.error(error);
+      toast.error("User Register failed");
     }
   };
 
@@ -62,7 +63,6 @@ export default function RegisterForm() {
           Register
         </button>
       </form>
-      {message && <p className="text-center mt-5 text-red-400">{message}</p>}
     </div>
   );
 }

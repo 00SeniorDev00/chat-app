@@ -28,6 +28,20 @@ export const login = async (username, password) => {
   }
 };
 
+export const getProfile = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error.response.data;
+  }
+};
+
 export const logout = async () => {
   localStorage.removeItem("token");
   window.location.href = "/login";
