@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:4000/auth";
+const API_URL = "http://localhost:4000";
 
 export const register = async (username, password) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, {
+    const response = await axios.post(`${API_URL}/auth/register`, {
       username,
       password,
     });
@@ -17,7 +17,7 @@ export const register = async (username, password) => {
 
 export const login = async (username, password) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, {
+    const response = await axios.post(`${API_URL}/auth/login`, {
       username,
       password,
     });
@@ -30,7 +30,7 @@ export const login = async (username, password) => {
 
 export const getProfile = async (token) => {
   try {
-    const response = await axios.get(`${API_URL}/me`, {
+    const response = await axios.get(`${API_URL}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,11 +44,29 @@ export const getProfile = async (token) => {
 
 export const updateProfile = async (token, userData) => {
   try {
-    const response = await axios.post(`${API_URL}/me`, userData, {
+    const response = await axios.post(`${API_URL}/auth/me`, userData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error.response.data;
+  }
+};
+
+export const createChat = async (token, participants) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/chat`,
+      { participants },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(error);
